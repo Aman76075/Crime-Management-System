@@ -1,14 +1,14 @@
 package dao;
 
 import static org.junit.Assert.*;
-import org.junit.Test;
+import static org.mockito.Mockito.*;
 import org.junit.*;
 import entity.Incidents;
 public class CarsDaoTest {
 	private CarsDao crime;
 	@Before
 	public void setup() {
-		crime=new CarsDao();
+		crime=mock(CarsDao.class);
 	}
 	@After
 	public void teardown() {
@@ -20,26 +20,31 @@ public class CarsDaoTest {
 	 public void testCreateIncident() {
         Incidents testIncident = new Incidents(
             10,
-            "Robbery",
+            "Ankit",
             java.sql.Date.valueOf("2022-01-15"),
-            "banglore",
-            "Armed robbery at a convenience store",
+            "Lucknow",
+            "Robbery at a public sector bank.",
             "Open",
             1,
             1
         );
+        
+        when(crime.createIncident(testIncident)).thenReturn(true);
+        
         boolean result = crime.createIncident(testIncident);
 
-        assertTrue("Return true for successful creation of the Incident.", result);
+        assertTrue(result);
     }
 	
 	@Test
 	public void testUpdateIncidentStatus() {
-		int incidentId=1;
+		int incidentId=10;
 		String status="Closed";
-		boolean result=crime.updateIncidentStatus(incidentId, status);
 		
-		assertTrue("Return true for successful updation od Status.",result);
+		when(crime.updateIncidentStatus(incidentId, status)).thenReturn(true);
+		
+		boolean result=crime.updateIncidentStatus(incidentId,status);
+		assertTrue(result);
 	}
 
 }

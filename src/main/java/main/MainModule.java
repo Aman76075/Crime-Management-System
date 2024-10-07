@@ -15,16 +15,15 @@ public class MainModule {
         char c;
         try {
         do {
-            System.out.println("Enter your choice");
-            System.out.println("1. Create Incident");
+            System.out.println("Enter your choice from the list below: ");
+            System.out.println("1. Create an Incident");
             System.out.println("2. Update the status of an incident");
-            System.out.println("3. Get a list of incidents within a date range");
-            System.out.println("4. Search for incidents based on various criteria");
-            System.out.println("5. Get all  incident ");
-            System.out.println("6. Create a new case and associate it with incidents");
-            System.out.println("7. Get details of a specific case");
-            System.out.println("8. Update case details ");
-            System.out.println("9. Get a list of all cases");
+            System.out.println("3. Get a list of incidents within a specified date range");
+            System.out.println("4. Search for incidents based on incident type");
+            System.out.println("5. Get a list of all the incidents ");
+            System.out.println("6. Create a new case");
+            System.out.println("8. Update the case details of a particular case");
+            System.out.println("9. Get a list of all the cases");
 
             int choice = s.nextInt();
             switch (choice) {
