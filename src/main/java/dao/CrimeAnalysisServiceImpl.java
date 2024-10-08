@@ -4,7 +4,7 @@ import java.util.List;
 import entity.Incidents;
 import entity.Cases;
 
-public interface ICrimeAnalysisService {
+public interface CrimeAnalysisServiceImpl {
 	boolean createCase(Cases newCase);
     Cases getCaseDetails(int caseId);
     boolean updateCaseDetails(Cases updates);

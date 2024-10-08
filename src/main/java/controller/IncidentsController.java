@@ -79,6 +79,7 @@ public class IncidentsController implements IncidentsInterface {
 			int incidentId=s.nextInt();
 			
 			System.out.println("Enter the updated status:");
+			s.nextLine();
 			String newStatus=s.nextLine();
 			
 			if(crime.updateIncidentStatus(incidentId,newStatus)) {

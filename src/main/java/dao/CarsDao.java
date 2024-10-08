@@ -15,7 +15,7 @@ import entity.Incidents;
 import util.DBConnection;
 import util.PropertyUtil;
 
-public class CarsDao implements ICrimeAnalysisService {
+public class CarsDao implements CrimeAnalysisServiceImpl {
 	static Connection con;
 	Statement statement;
 	PreparedStatement preparedstatement;
@@ -27,8 +27,9 @@ public class CarsDao implements ICrimeAnalysisService {
 	}
 	//New Case Creation by SQL
 	public boolean createCase(Cases newCase) {
+		getCon();
 		try {
-			getCon();
+			
 			
 			String sql="Insert into Cases(caseID,caseDescription,incidentID) values (?,?,?)";
 			try(PreparedStatement preparedstatement=con.prepareStatement(sql)){
@@ -56,8 +57,9 @@ public class CarsDao implements ICrimeAnalysisService {
 	
 	//Update case details 
 	public boolean updateCaseDetails(Cases updatedCase) {
+		getCon();
         try {
-        	getCon();
+        	
 
             String sql = "Update Cases Set caseDescription = ?, incidentID = ? Where caseID = ?";
             try (PreparedStatement preparedStatement = con.prepareStatement(sql)) {
@@ -87,9 +89,9 @@ public class CarsDao implements ICrimeAnalysisService {
 	//Get case details
 	public Cases getCaseDetails(int caseId) {
         Cases caseDetails = null;
-
+        getCon();
         try {
-        	getCon();
+        	
             String sql = "Select * From Cases where caseID = ?";
             try (PreparedStatement preparedStatement = con.prepareStatement(sql)) {
                 preparedStatement.setInt(1, caseId);
@@ -112,9 +114,10 @@ public class CarsDao implements ICrimeAnalysisService {
 	//Get all cases
 	public List<Cases> getAllCases() {
         List<Cases> casesList = new ArrayList<>();
+        getCon();
 
         try {
-        	getCon();
+        	
 
             String sql = "Select * From Cases";
             try (Statement statement = con.createStatement();
@@ -146,8 +149,9 @@ public class CarsDao implements ICrimeAnalysisService {
 	
 	//Create incident
 	public boolean createIncident(Incidents incident) {
+		getCon();
     	try  {
-    		getCon();
+    		
 
             String sql = "INSERT INTO Incidents (IncidentID, IncidentType, IncidentDate, Location, Descriptions, Status, VictimID, SuspectID) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
             
@@ -174,8 +178,9 @@ public class CarsDao implements ICrimeAnalysisService {
 	
 	//update incident status
 	public boolean updateIncidentStatus(int incidentId,String status) {
+		getCon();
     	try {
-    		getCon();
+    		
 
             String sql = "UPDATE Incidents SET Status = ? WHERE IncidentID = ?";
 
@@ -197,8 +202,9 @@ public class CarsDao implements ICrimeAnalysisService {
 	//Get Incidents by specified date range
 	public List<Incidents> getIncidentsInDateRange(String startDateStr, String endDateStr) {
         List<Incidents> incidentsList = new ArrayList<>();
+        getCon();
         try {
-        	getCon();
+        	
             String sql = "Select * From Incidents Where IncidentDate Between ? And ?";
             try (PreparedStatement preparedStatement = con.prepareStatement(sql)) {
                 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -223,14 +229,6 @@ public class CarsDao implements ICrimeAnalysisService {
             }
         } catch (SQLException | ParseException e) {
             e.printStackTrace();
-        } finally {
-            try {
-                if (con != null) {
-                    con.close();
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
         }
         return incidentsList;
     }
@@ -238,9 +236,9 @@ public class CarsDao implements ICrimeAnalysisService {
 	//Search incident by incident type
 	public List<Incidents> searchIncidentsByType(String incidentType) {
         List<Incidents> incidentsList = new ArrayList<>();
-
+    	getCon();
         try {
-        	getCon();
+        
 
             String sql = "Select * From Incidents Where IncidentType = ?";
             
@@ -267,14 +265,6 @@ public class CarsDao implements ICrimeAnalysisService {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-            try {
-                if (con != null) {
-                    con.close();
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
         }
 
         return incidentsList;
@@ -283,10 +273,10 @@ public class CarsDao implements ICrimeAnalysisService {
 	//Get list of all the incidents
 	public List<Incidents> getAllIncidents() {
         List<Incidents> incidentsList = new ArrayList<>();
+        getCon();
 
         try {
-            getCon();
-
+            
             String sql = "SELECT * FROM Incidents";
 
             try (PreparedStatement preparedStatement = con.prepareStatement(sql);
@@ -309,16 +299,7 @@ public class CarsDao implements ICrimeAnalysisService {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-            try {
-                if (con != null) {
-                    con.close();
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
-
+        } 
         return incidentsList;
     }
 	
